@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: rent-cars
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jee
+    username: jee
+    password: jee
+server:
+  port: 8082
+
