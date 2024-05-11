@@ -11,7 +11,11 @@ java {
     sourceCompatibility = '17'
 }
 
+
 configurations {
+    compileJava {
+        options.compilerArgs << '-parameters'
+    }
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -24,6 +28,8 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.5'
+    implementation 'jakarta.validation:jakarta.validation-api:3.1.0-M2'
+
     implementation 'org.postgresql:postgresql:42.7.3'
 
     compileOnly 'org.projectlombok:lombok'
