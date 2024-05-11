@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "e260a1e9-014d-4f7e-89c6-2be4040a54d2",
+		"name": "jee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19470314"
+	},
+	"item": [
+		{
+			"name": "All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:8081/rent-properties-api/rental-properties"
+			},
+			"response": []
+		},
+		{
+			"name": "find one",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8081/rent-properties-api/rental-properties/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"rent-properties-api",
+						"rental-properties",
+						"1"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\":\"Appartement bien situé près du métro et des commerces\",\n    \"town\": \"Neuilly-sur-Seine\",\n    \"address\": \"90 rue de la Victoire\",\n    \"propertyType\": \"FLAT\",\n    \"rentAmount\": 1040.9,\n    \"securityDepositAmount\": 1250.9,\n    \"area\": 50.69,\n    \"numberOfBedrooms\": 3,\n    \"floorNumber\": 2,\n    \"numberOfFloors\": 5,\n    \"constructionYear\": 1989,\n    \"energyClassification\": \"B\",\n    \"hasElevator\": true,\n    \"hasIntercom\": true,\n    \"hasBalcony\": true,\n    \"hasParkingSpace\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8081/rent-properties-api/rental-properties"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\":\"Appartement bien situé près du métro et des commerces 2\",\n    \"town\": \"Neuilly-sur-Seine\",\n    \"address\": \"90 rue de la Victoire\",\n    \"propertyType\": \"FLAT\",\n    \"rentAmount\": 1040.9,\n    \"securityDepositAmount\": 1250.9,\n    \"area\": 50.69,\n    \"numberOfBedrooms\": 3,\n    \"floorNumber\": 2,\n    \"numberOfFloors\": 5,\n    \"constructionYear\": 1989,\n    \"energyClassification\": \"B\",\n    \"hasElevator\": true,\n    \"hasIntercom\": true,\n    \"hasBalcony\": true,\n    \"hasParkingSpace\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8081/rent-properties-api/rental-properties/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Double rentAmount",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rentAmount\": 790.10\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8081/rent-properties-api/rental-properties/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://127.0.0.1:8081/rent-properties-api/rental-properties/1"
+			},
+			"response": []
+		}
+	]
+}
