@@ -66,4 +66,11 @@ public class CarService {
         return mapperCar.toCarDto(carEntity);
     }
 
+       public CarDto deleteCarById(Integer id) {
+        CarEntity carEntity = carRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
+        carRepository.deleteById(id);
+        return mapperCar.toCarDto(carEntity);
+    }
+
 }

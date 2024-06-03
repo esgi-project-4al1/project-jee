@@ -66,4 +66,14 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+     @DeleteMapping("/{id}")
+    public ResponseEntity<CarDto> deleteCarById(@PathVariable Integer id) {
+        try {
+            CarDto deletedCar = carService.deleteCarById(id);
+            return new ResponseEntity<>(deletedCar, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
