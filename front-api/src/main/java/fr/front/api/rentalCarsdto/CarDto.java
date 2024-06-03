@@ -1,4 +1,4 @@
-package com.rent.car.rentcars.dto;
+package fr.front.api.rentalCarsdto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

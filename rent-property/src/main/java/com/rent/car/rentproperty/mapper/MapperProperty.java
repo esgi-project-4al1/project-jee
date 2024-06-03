@@ -1,10 +1,10 @@
 package com.rent.car.rentproperty.mapper;
 
 
-import com.rent.car.rentproperty.dto.PropertiesDto;
-import com.rent.car.rentproperty.dto.PropertyDto;
+import com.rent.car.rentproperty.dto.RentalPropertiesDto;
+import com.rent.car.rentproperty.dto.RentalPropertyDto;
 import com.rent.car.rentproperty.entity.EnergyClassificationEntity;
-import com.rent.car.rentproperty.entity.PropertyEntity;
+import com.rent.car.rentproperty.entity.RentalPropertyEntity;
 import com.rent.car.rentproperty.entity.PropertyTypeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,79 +20,79 @@ public class MapperProperty {
     }
 
 
-    public PropertyEntity toPropertyDto(PropertyDto propertyDto, int id) {
-        return new PropertyEntity(
+    public RentalPropertyEntity toPropertyDto(RentalPropertyDto rentalPropertyDto, int id) {
+        return new RentalPropertyEntity(
                 id,
-                propertyDto.getDescription(),
-                propertyDto.getTown(),
-                propertyDto.getAddress(),
-                mapperPropertyType.toPropertyType(propertyDto.getPropertyType().name()),
-                propertyDto.getRentAmount(),
-                propertyDto.getSecurityDepositAmount(),
-                propertyDto.getArea(),
-                propertyDto.getNumberOfBedrooms(),
-                propertyDto.getFloorNumber(),
-                propertyDto.getNumberOfFloors(),
-                propertyDto.getConstructionYear(),
-                new EnergyClassificationEntity(propertyDto.getEnergyClassification().name()),
-                propertyDto.getHasElevator(),
-                propertyDto.getHasIntercom(),
-                propertyDto.getHasBalcony(),
-                propertyDto.getHasParkingSpace()
+                rentalPropertyDto.getDescription(),
+                rentalPropertyDto.getTown(),
+                rentalPropertyDto.getAddress(),
+                mapperPropertyType.toPropertyType(rentalPropertyDto.getPropertyType().name()),
+                rentalPropertyDto.getRentAmount(),
+                rentalPropertyDto.getSecurityDepositAmount(),
+                rentalPropertyDto.getArea(),
+                rentalPropertyDto.getNumberOfBedrooms(),
+                rentalPropertyDto.getFloorNumber(),
+                rentalPropertyDto.getNumberOfFloors(),
+                rentalPropertyDto.getConstructionYear(),
+                new EnergyClassificationEntity(rentalPropertyDto.getEnergyClassification().name()),
+                rentalPropertyDto.getHasElevator(),
+                rentalPropertyDto.getHasIntercom(),
+                rentalPropertyDto.getHasBalcony(),
+                rentalPropertyDto.getHasParkingSpace()
         );
     }
 
-    public PropertyEntity toPropertyDto(PropertyDto propertyDto) {
-        return new PropertyEntity(
-                propertyDto.getDescription(),
-                propertyDto.getTown(),
-                propertyDto.getAddress(),
-                mapperPropertyType.toPropertyType(propertyDto.getPropertyType().name()),
-                propertyDto.getRentAmount(),
-                propertyDto.getSecurityDepositAmount(),
-                propertyDto.getArea(),
-                propertyDto.getNumberOfBedrooms(),
-                propertyDto.getFloorNumber(),
-                propertyDto.getNumberOfFloors(),
-                propertyDto.getConstructionYear(),
-                new EnergyClassificationEntity(propertyDto.getEnergyClassification().name()),
-                propertyDto.getHasElevator(),
-                propertyDto.getHasIntercom(),
-                propertyDto.getHasBalcony(),
-                propertyDto.getHasParkingSpace()
+    public RentalPropertyEntity toPropertyDto(RentalPropertyDto rentalPropertyDto) {
+        return new RentalPropertyEntity(
+                rentalPropertyDto.getDescription(),
+                rentalPropertyDto.getTown(),
+                rentalPropertyDto.getAddress(),
+                mapperPropertyType.toPropertyType(rentalPropertyDto.getPropertyType().name()),
+                rentalPropertyDto.getRentAmount(),
+                rentalPropertyDto.getSecurityDepositAmount(),
+                rentalPropertyDto.getArea(),
+                rentalPropertyDto.getNumberOfBedrooms(),
+                rentalPropertyDto.getFloorNumber(),
+                rentalPropertyDto.getNumberOfFloors(),
+                rentalPropertyDto.getConstructionYear(),
+                new EnergyClassificationEntity(rentalPropertyDto.getEnergyClassification().name()),
+                rentalPropertyDto.getHasElevator(),
+                rentalPropertyDto.getHasIntercom(),
+                rentalPropertyDto.getHasBalcony(),
+                rentalPropertyDto.getHasParkingSpace()
         );
     }
 
-    public PropertiesDto toPropertyEntity(PropertyEntity propertyEntity) {
-        return new PropertiesDto(
-                propertyEntity.getAddress(),
-                propertyEntity.getArea(),
-                propertyEntity.getDescription(),
-                mapperPropertyType.toPropertyTypeEntity(propertyEntity.getPropertyType()),
-                propertyEntity.getRentAmount(),
-                propertyEntity.getSecurityDepositAmount(),
-                propertyEntity.getTown()
+    public RentalPropertiesDto toPropertyEntity(RentalPropertyEntity rentalPropertyEntity) {
+        return new RentalPropertiesDto(
+                rentalPropertyEntity.getAddress(),
+                rentalPropertyEntity.getArea(),
+                rentalPropertyEntity.getDescription(),
+                mapperPropertyType.toPropertyTypeEntity(rentalPropertyEntity.getPropertyType()),
+                rentalPropertyEntity.getRentAmount(),
+                rentalPropertyEntity.getSecurityDepositAmount(),
+                rentalPropertyEntity.getTown()
         );
     }
 
-    public PropertyEntity mapTo(PropertyEntity propertyEntity, PropertyDto propertyDto, EnergyClassificationEntity energyClassificationEntity, PropertyTypeEntity propertyTypeEntity) {
-        propertyEntity.setDescription(propertyDto.getDescription());
-        propertyEntity.setTown(propertyDto.getTown());
-        propertyEntity.setAddress(propertyDto.getAddress());
-        propertyEntity.setPropertyType(propertyTypeEntity);
-        propertyEntity.setRentAmount(propertyDto.getRentAmount());
-        propertyEntity.setSecurityDepositAmount(propertyDto.getSecurityDepositAmount());
-        propertyEntity.setArea(propertyDto.getArea());
-        propertyEntity.setNumberOfBedrooms(propertyDto.getNumberOfBedrooms());
-        propertyEntity.setFloorNumber(propertyDto.getFloorNumber());
-        propertyEntity.setNumberOfFloors(propertyDto.getNumberOfFloors());
-        propertyEntity.setConstructionYear(propertyDto.getConstructionYear());
-        propertyEntity.setEnergyClassificationEntity(energyClassificationEntity);
-        propertyEntity.setHasElevator(propertyDto.getHasElevator());
-        propertyEntity.setHasIntercom(propertyDto.getHasIntercom());
-        propertyEntity.setHasBalcony(propertyDto.getHasBalcony());
-        propertyDto.setHasParkingSpace(propertyDto.getHasParkingSpace());
-        return propertyEntity;
+    public RentalPropertyEntity mapTo(RentalPropertyEntity rentalPropertyEntity, RentalPropertyDto rentalPropertyDto, EnergyClassificationEntity energyClassificationEntity, PropertyTypeEntity propertyTypeEntity) {
+        rentalPropertyEntity.setDescription(rentalPropertyDto.getDescription());
+        rentalPropertyEntity.setTown(rentalPropertyDto.getTown());
+        rentalPropertyEntity.setAddress(rentalPropertyDto.getAddress());
+        rentalPropertyEntity.setPropertyType(propertyTypeEntity);
+        rentalPropertyEntity.setRentAmount(rentalPropertyDto.getRentAmount());
+        rentalPropertyEntity.setSecurityDepositAmount(rentalPropertyDto.getSecurityDepositAmount());
+        rentalPropertyEntity.setArea(rentalPropertyDto.getArea());
+        rentalPropertyEntity.setNumberOfBedrooms(rentalPropertyDto.getNumberOfBedrooms());
+        rentalPropertyEntity.setFloorNumber(rentalPropertyDto.getFloorNumber());
+        rentalPropertyEntity.setNumberOfFloors(rentalPropertyDto.getNumberOfFloors());
+        rentalPropertyEntity.setConstructionYear(rentalPropertyDto.getConstructionYear());
+        rentalPropertyEntity.setEnergyClassificationEntity(energyClassificationEntity);
+        rentalPropertyEntity.setHasElevator(rentalPropertyDto.getHasElevator());
+        rentalPropertyEntity.setHasIntercom(rentalPropertyDto.getHasIntercom());
+        rentalPropertyEntity.setHasBalcony(rentalPropertyDto.getHasBalcony());
+        rentalPropertyDto.setHasParkingSpace(rentalPropertyDto.getHasParkingSpace());
+        return rentalPropertyEntity;
     }
 
 }

@@ -2,31 +2,35 @@ package com.rent.car.rentproperty.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PropertyDto {
+public class RentalPropertyDto {
 
     @JsonProperty("description")
-    @Nonnull
+    @NotNull(message = "Please specify brand")
+    @NotBlank(message = "Brand cannot be blank")
     private String description;
     @JsonProperty("town")
-    @Nonnull
+    @NotNull(message = "Please specify brand")
+    @NotBlank(message = "Brand cannot be blank")
     private String town;
     @JsonProperty("address")
-    @Nonnull
+    @NotNull(message = "Please specify brand")
+    @NotBlank(message = "Brand cannot be blank")
     private String address;
     @JsonProperty("propertyType")
-    @Nonnull
-    private PropertyTypeEnumDto propertyType;
+    @NotNull(message = "Please specify brand")
+    private RentalPropertyTypeEnumDto propertyType;
     @JsonProperty("rentAmount")
-    @Nonnull
+    @NotNull(message = "Please specify brand")
     private Double rentAmount;
     @JsonProperty("securityDepositAmount")
-    @Nonnull
+    @NotNull(message = "Please specify brand")
     private Double securityDepositAmount;
     @JsonProperty("area")
-    @Nonnull
+    @NotNull(message = "Please specify brand")
     private Double area;
     @JsonProperty("numberOfBedrooms")
     private Integer numberOfBedrooms;
@@ -47,10 +51,10 @@ public class PropertyDto {
     @JsonProperty("hasParkingSpace")
     private Boolean hasParkingSpace;
 
-    public PropertyDto() {
+    public RentalPropertyDto() {
     }
 
-    public PropertyDto(@Nonnull String description, @Nonnull String town, @Nonnull String address, @Nonnull PropertyTypeEnumDto propertyType, @Nonnull Double rentAmount, @Nonnull Double securityDepositAmount, @Nonnull Double area, Integer numberOfBedrooms, Integer floorNumber, Integer numberOfFloors, String constructionYear, EnergyClassificationEnumDto energyClassification, Boolean hasElevator, Boolean hasIntercom, Boolean hasBalcony, Boolean hasParkingSpace) {
+    public RentalPropertyDto(String description, String town, String address, RentalPropertyTypeEnumDto propertyType, Double rentAmount, Double securityDepositAmount, Double area, Integer numberOfBedrooms, Integer floorNumber, Integer numberOfFloors, String constructionYear, EnergyClassificationEnumDto energyClassification, Boolean hasElevator, Boolean hasIntercom, Boolean hasBalcony, Boolean hasParkingSpace) {
         this.description = description;
         this.town = town;
         this.address = address;
@@ -69,80 +73,78 @@ public class PropertyDto {
         this.hasParkingSpace = hasParkingSpace;
     }
 
-    @Nonnull
     @JsonProperty("description")
     public String getDescription() {
         return description;
     }
 
     @JsonProperty("description")
-    public void setDescription(@Nonnull String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    @Nonnull
+
     @JsonProperty("town")
     public String getTown() {
         return town;
     }
 
     @JsonProperty("town")
-    public void setTown(@Nonnull String town) {
+    public void setTown(String town) {
         this.town = town;
     }
 
-    @Nonnull
+
     @JsonProperty("address")
     public String getAddress() {
         return address;
     }
 
     @JsonProperty("address")
-    public void setAddress(@Nonnull String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    @Nonnull
+
     @JsonProperty("propertyType")
-    public PropertyTypeEnumDto getPropertyType() {
+    public RentalPropertyTypeEnumDto getPropertyType() {
         return propertyType;
     }
 
     @JsonProperty("propertyType")
-    public void setPropertyType(@Nonnull PropertyTypeEnumDto propertyType) {
+    public void setPropertyType(RentalPropertyTypeEnumDto propertyType) {
         this.propertyType = propertyType;
     }
 
-    @Nonnull
+
     @JsonProperty("rentAmount")
     public Double getRentAmount() {
         return rentAmount;
     }
 
     @JsonProperty("rentAmount")
-    public void setRentAmount(@Nonnull Double rentAmount) {
+    public void setRentAmount(Double rentAmount) {
         this.rentAmount = rentAmount;
     }
 
-    @Nonnull
+
     @JsonProperty("securityDepositAmount")
     public Double getSecurityDepositAmount() {
         return securityDepositAmount;
     }
 
     @JsonProperty("securityDepositAmount")
-    public void setSecurityDepositAmount(@Nonnull Double securityDepositAmount) {
+    public void setSecurityDepositAmount(Double securityDepositAmount) {
         this.securityDepositAmount = securityDepositAmount;
     }
 
-    @Nonnull
     @JsonProperty("area")
     public Double getArea() {
         return area;
     }
 
     @JsonProperty("area")
-    public void setArea(@Nonnull Double area) {
+    public void setArea(Double area) {
         this.area = area;
     }
 

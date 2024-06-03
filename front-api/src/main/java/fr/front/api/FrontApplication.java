@@ -1,12 +1,11 @@
-package fr.rent.api;
+package fr.front.api;
 
 
 import jakarta.ws.rs.ApplicationPath;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.core.Application;
 
 
 @ApplicationPath("/api")
-public class RentApplication extends Application {
+public class FrontApplication extends Application {
 
 }

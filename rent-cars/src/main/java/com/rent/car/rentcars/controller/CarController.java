@@ -28,14 +28,13 @@ public class CarController {
 
     @PostMapping
     public ResponseEntity<Void> addCar( @Valid  @RequestBody CarDto carDto) {
-
             System.out.println("Received car data: " + carDto);
             carService.addCar(carDto);
             return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updateCar(@PathVariable Integer id, @Valid @RequestBody UpdateCarDto updateCarDto) {
+    public ResponseEntity<Void> updateCar(@PathVariable Integer id, @RequestBody UpdateCarDto updateCarDto) {
         try {
             carService.updateCar(id, updateCarDto);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -47,7 +46,7 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateOrAddCar(@PathVariable Integer id, @Valid @RequestBody CarDto carDto) {
+    public ResponseEntity<Void> updateOrAddCar(@PathVariable Integer id, @RequestBody CarDto carDto) {
         carService.updateOrAddCar(id, carDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }

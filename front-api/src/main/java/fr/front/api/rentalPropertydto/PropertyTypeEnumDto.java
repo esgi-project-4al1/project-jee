@@ -1,4 +1,4 @@
-package com.rent.car.rentproperty.dto;
+package fr.front.api.rentalPropertydto;
 
 public enum PropertyTypeEnumDto {
 

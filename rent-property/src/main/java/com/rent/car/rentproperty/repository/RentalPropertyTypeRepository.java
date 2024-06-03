@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PropertyTypeRepository extends JpaRepository<PropertyTypeEntity, Integer> {
+public interface RentalPropertyTypeRepository extends JpaRepository<PropertyTypeEntity, Integer> {
 
     Optional<PropertyTypeEntity> findByDesignation(String designation);
 }

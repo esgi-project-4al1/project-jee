@@ -1,7 +1,6 @@
 package com.rent.car.rentproperty.entity;
 
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,27 +8,23 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity(name = "property")
-public class PropertyEntity {
+public class RentalPropertyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Nonnull
     @Column(length = 200)
     private String description;
-    @Nonnull
     @Column(length = 100)
     private String town;
-    @Nonnull
     @Column(length = 200)
     private String address;
-    @Nonnull
     @ManyToOne()
     private PropertyTypeEntity propertyType;
-    @Nonnull
+
     private Double rentAmount;
-    @Nonnull
+
     private Double securityDepositAmount;
-    @Nonnull
+
     private Double area;
     private int numberOfBedrooms;
     private int floorNumber;
@@ -43,7 +38,7 @@ public class PropertyEntity {
     private boolean hasBalcony;
     private boolean hasParkingSpace;
 
-    public PropertyEntity(int id, @Nonnull String description, @Nonnull String town, @Nonnull String address, @Nonnull PropertyTypeEntity propertyType, @Nonnull Double rentAmount, @Nonnull Double securityDepositAmount, @Nonnull Double area, Integer numberOfBedrooms, Integer floorNumber, Integer numberOfFloors, String constructionYear, EnergyClassificationEntity energyClassificationEntity, Boolean hasElevator, Boolean hasIntercom, Boolean hasBalcony, Boolean hasParkingSpace) {
+    public RentalPropertyEntity(int id, String description, String town, String address, PropertyTypeEntity propertyType, Double rentAmount, Double securityDepositAmount, Double area, Integer numberOfBedrooms, Integer floorNumber, Integer numberOfFloors, String constructionYear, EnergyClassificationEntity energyClassificationEntity, Boolean hasElevator, Boolean hasIntercom, Boolean hasBalcony, Boolean hasParkingSpace) {
         this.id = id;
         this.description = description;
         this.town = town;
@@ -64,7 +59,7 @@ public class PropertyEntity {
     }
 
 
-    public PropertyEntity( @Nonnull String description, @Nonnull String town, @Nonnull String address, @Nonnull PropertyTypeEntity propertyType, @Nonnull Double rentAmount, @Nonnull Double securityDepositAmount,@Nonnull Double area, Integer numberOfBedrooms, Integer floorNumber, Integer numberOfFloors, String constructionYear, EnergyClassificationEntity energyClassificationEntity, Boolean hasElevator, Boolean hasIntercom, Boolean hasBalcony, Boolean hasParkingSpace) {
+    public RentalPropertyEntity(String description, String town, String address, PropertyTypeEntity propertyType, Double rentAmount, Double securityDepositAmount, Double area, Integer numberOfBedrooms, Integer floorNumber, Integer numberOfFloors, String constructionYear, EnergyClassificationEntity energyClassificationEntity, Boolean hasElevator, Boolean hasIntercom, Boolean hasBalcony, Boolean hasParkingSpace) {
         this.description = description;
         this.town = town;
         this.address = address;
@@ -83,13 +78,13 @@ public class PropertyEntity {
         this.hasParkingSpace = hasParkingSpace;
     }
 
-    public PropertyEntity() {
+    public RentalPropertyEntity() {
 
     }
 
 
-    public PropertyEntity PropertyEntityWithNewProperTypeAndEnergy(PropertyTypeEntity propertyTypeEntity, EnergyClassificationEntity energyClassificationEntity) {
-        return new PropertyEntity(
+    public RentalPropertyEntity PropertyEntityWithNewProperTypeAndEnergy(PropertyTypeEntity propertyTypeEntity, EnergyClassificationEntity energyClassificationEntity) {
+        return new RentalPropertyEntity(
                 this.description,
                 this.town,
                 this.address,

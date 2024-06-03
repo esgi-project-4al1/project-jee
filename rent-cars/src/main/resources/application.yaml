@@ -5,6 +5,15 @@ spring:
     url: jdbc:postgresql://localhost:5432/jee
     username: jee
     password: jee
+    driver-class-name: org.postgresql.Driver
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
+        enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
 server:
   port: 8082
 

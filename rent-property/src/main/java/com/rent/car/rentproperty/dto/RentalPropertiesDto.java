@@ -1,7 +1,7 @@
 package com.rent.car.rentproperty.dto;
 
 
-public record PropertiesDto(
+public record RentalPropertiesDto(
         String address,
         Double area,
         String description,
