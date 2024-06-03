@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/rent-cars-api")
+@RequestMapping("/rent-cars-api/rental-cars")
 @Validated
 public class CarController {
 
@@ -51,7 +51,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/rental-cars")
+    @GetMapping()
     public ResponseEntity<List<CarDto>> getAllRentalCars() {
         List<CarDto> rentalCars = carService.getAllRentalCars();
         return new ResponseEntity<>(rentalCars, HttpStatus.OK);
