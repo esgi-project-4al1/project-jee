@@ -1,0 +1,18 @@
+{
+  "description":"Appartement bien situé près du métro et des commerces",
+  "town": "Neuilly-sur-Seine",
+  "address": "90 rue de la Victoire",
+  "propertyType": "FLAT",
+  "rentAmount": 1040.9,
+  "securityDepositAmount": 1250.9,
+  "area": 50.69,
+  "numberOfBedrooms": 3,
+  "floorNumber": 2,
+  "numberOfFloors": 5,
+  "constructionYear": 1989,
+  "energyClassification": "B",
+  "hasElevator": true,
+  "hasIntercom": true,
+  "hasBalcony": true,
+  "hasParkingSpace": true
+}

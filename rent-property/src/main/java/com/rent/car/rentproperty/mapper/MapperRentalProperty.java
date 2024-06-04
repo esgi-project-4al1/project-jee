@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MapperProperty {
+public class MapperRentalProperty {
 
-    private final MapperPropertyType mapperPropertyType;
+    private final MapperRentalPropertyType mapperRentalPropertyType;
 
-    @Autowired
-    public MapperProperty(MapperPropertyType mapperPropertyType) {
-        this.mapperPropertyType = mapperPropertyType;
+    public MapperRentalProperty(MapperRentalPropertyType mapperRentalPropertyType) {
+        this.mapperRentalPropertyType = mapperRentalPropertyType;
     }
 
 
@@ -26,7 +25,7 @@ public class MapperProperty {
                 rentalPropertyDto.getDescription(),
                 rentalPropertyDto.getTown(),
                 rentalPropertyDto.getAddress(),
-                mapperPropertyType.toPropertyType(rentalPropertyDto.getPropertyType().name()),
+                mapperRentalPropertyType.toPropertyType(rentalPropertyDto.getPropertyType().name()),
                 rentalPropertyDto.getRentAmount(),
                 rentalPropertyDto.getSecurityDepositAmount(),
                 rentalPropertyDto.getArea(),
@@ -47,7 +46,7 @@ public class MapperProperty {
                 rentalPropertyDto.getDescription(),
                 rentalPropertyDto.getTown(),
                 rentalPropertyDto.getAddress(),
-                mapperPropertyType.toPropertyType(rentalPropertyDto.getPropertyType().name()),
+                mapperRentalPropertyType.toPropertyType(rentalPropertyDto.getPropertyType().name()),
                 rentalPropertyDto.getRentAmount(),
                 rentalPropertyDto.getSecurityDepositAmount(),
                 rentalPropertyDto.getArea(),
@@ -68,7 +67,7 @@ public class MapperProperty {
                 rentalPropertyEntity.getAddress(),
                 rentalPropertyEntity.getArea(),
                 rentalPropertyEntity.getDescription(),
-                mapperPropertyType.toPropertyTypeEntity(rentalPropertyEntity.getPropertyType()),
+                mapperRentalPropertyType.toPropertyTypeEntity(rentalPropertyEntity.getPropertyType()),
                 rentalPropertyEntity.getRentAmount(),
                 rentalPropertyEntity.getSecurityDepositAmount(),
                 rentalPropertyEntity.getTown()

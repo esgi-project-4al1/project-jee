@@ -4,10 +4,10 @@ import com.rent.car.rentproperty.entity.PropertyTypeEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MapperPropertyType {
+public class MapperRentalPropertyType {
 
 
-    public MapperPropertyType() {
+    public MapperRentalPropertyType() {
     }
 
     public String toPropertyTypeEntity(PropertyTypeEntity propertyTypeEntity) {

@@ -5,10 +5,10 @@ import com.rent.car.rentproperty.dto.RentalPropertiesDto;
 import com.rent.car.rentproperty.dto.RentalPropertyDto;
 import com.rent.car.rentproperty.dto.RentalPropertyTypeEnumDto;
 import com.rent.car.rentproperty.entity.EnergyClassificationEntity;
-import com.rent.car.rentproperty.entity.RentalPropertyEntity;
 import com.rent.car.rentproperty.entity.PropertyTypeEntity;
-import com.rent.car.rentproperty.exception.NotFoundException;
-import com.rent.car.rentproperty.mapper.MapperProperty;
+import com.rent.car.rentproperty.entity.RentalPropertyEntity;
+import com.rent.car.rentproperty.exception.NotFoundRentalPropertyException;
+import com.rent.car.rentproperty.mapper.MapperRentalProperty;
 import com.rent.car.rentproperty.repository.RentalPropertyRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class RentalPropertyServiceTest {
     @Mock
     private EnergyClassificationService energyClassificationService;
     @Mock
-    private MapperProperty mapperProperty;
+    private MapperRentalProperty mapperRentalProperty;
     @Mock
     private RentalPropertyRepository rentalPropertyRepository;
 
@@ -45,7 +45,7 @@ class RentalPropertyServiceTest {
 
 
     @Test
-    public void findRentalProperty_Good(){
+    public void findRentalProperty_Good() {
         //GIVEN
         int rentalId = 1;
         RentalPropertyEntity rentalPropertyEntity = buildPropertyEntityWithId(1);
@@ -53,18 +53,18 @@ class RentalPropertyServiceTest {
 
         //WHEN
         when(rentalPropertyRepository.findById(rentalId)).thenReturn(Optional.of(rentalPropertyEntity));
-        when(this.mapperProperty.toPropertyEntity(rentalPropertyEntity)).thenReturn(rentalPropertiesDto);
+        when(this.mapperRentalProperty.toPropertyEntity(rentalPropertyEntity)).thenReturn(rentalPropertiesDto);
 
         //THEN
         this.rentalPropertyService.findRentalProperty(rentalId);
-        verifyNoMoreInteractions(mapperProperty);
+        verifyNoMoreInteractions(mapperRentalProperty);
         verifyNoMoreInteractions(rentalPropertyRepository);
 
 
     }
 
     @Test
-    public void findRentalProperty_Wrong(){
+    public void findRentalProperty_Wrong() {
         //GIVEN
         int rentalId = 1;
 
@@ -72,8 +72,8 @@ class RentalPropertyServiceTest {
         when(rentalPropertyRepository.findById(rentalId)).thenReturn(Optional.empty());
 
         //THEN
-        assertThatExceptionOfType(NotFoundException.class)
-                .isThrownBy(() ->  rentalPropertyService.findRentalProperty(rentalId))
+        assertThatExceptionOfType(NotFoundRentalPropertyException.class)
+                .isThrownBy(() -> rentalPropertyService.findRentalProperty(rentalId))
                 .satisfies(e -> assertThat(e.getMessage()).isEqualTo("Rental Property Not Found " + rentalId));
         verifyNoMoreInteractions(rentalPropertyRepository);
 
@@ -81,7 +81,7 @@ class RentalPropertyServiceTest {
     }
 
     @Test
-    public void findAllRentalProperties_Empty(){
+    public void findAllRentalProperties_Empty() {
         //WHEN
         when(rentalPropertyRepository.findAll()).thenReturn(Collections.emptyList());
 
@@ -91,23 +91,23 @@ class RentalPropertyServiceTest {
     }
 
     @Test
-    public void findAllRentalProperties_one(){
+    public void findAllRentalProperties_one() {
         //GIVEN
         List<RentalPropertiesDto> rentalPropertiesDtos = List.of(buildPropertiesDto());
         List<RentalPropertyEntity> propertyEntities = List.of(buildPropertyEntity());
 
         //WHEN
         when(rentalPropertyRepository.findAll()).thenReturn(propertyEntities);
-        when(mapperProperty.toPropertyEntity(propertyEntities.get(0))).thenReturn(rentalPropertiesDtos.get(0));
+        when(mapperRentalProperty.toPropertyEntity(propertyEntities.get(0))).thenReturn(rentalPropertiesDtos.get(0));
 
         //THEN
-        List<RentalPropertiesDto> rentalPropertiesDtoList = this.rentalPropertyService.findAllRentalProperties();
+        this.rentalPropertyService.findAllRentalProperties();
         verifyNoMoreInteractions(rentalPropertyRepository);
-        verifyNoMoreInteractions(mapperProperty);
+        verifyNoMoreInteractions(mapperRentalProperty);
     }
 
     @Test
-    public void saveRentalProperty(){
+    public void saveRentalProperty() {
         //GIVEN
         RentalPropertyDto rentalPropertyDto = buildPropertyDto();
         RentalPropertyEntity rentalPropertyEntity = buildPropertyEntityWithId(1);
@@ -115,9 +115,9 @@ class RentalPropertyServiceTest {
         EnergyClassificationEntity energyClassificationEntity = new EnergyClassificationEntity("A");
 
         //WHEN
-        when(rentalPropertyTypeService.saveOrFind(rentalPropertyDto.getPropertyType())).thenReturn(propertyTypeEntity);
-        when(energyClassificationService.saveOrFind(rentalPropertyDto.getEnergyClassification().name())).thenReturn(energyClassificationEntity);
-        when(mapperProperty.toPropertyDto(rentalPropertyDto)).thenReturn(rentalPropertyEntity);
+        when(rentalPropertyTypeService.updatePropertyTypeEnum(rentalPropertyDto.getPropertyType())).thenReturn(propertyTypeEntity);
+        when(energyClassificationService.updateEnergyClassification(rentalPropertyDto.getEnergyClassification().name())).thenReturn(energyClassificationEntity);
+        when(mapperRentalProperty.toPropertyDto(rentalPropertyDto)).thenReturn(rentalPropertyEntity);
         when(rentalPropertyRepository.save(Mockito.any(RentalPropertyEntity.class))).thenReturn(rentalPropertyEntity);
 
         //THEN
@@ -127,12 +127,12 @@ class RentalPropertyServiceTest {
         Assertions.assertEquals(rentalPropertyEntity.getAddress(), captor.getValue().getAddress());
         verifyNoMoreInteractions(rentalPropertyTypeService);
         verifyNoMoreInteractions(energyClassificationService);
-        verifyNoMoreInteractions(mapperProperty);
+        verifyNoMoreInteractions(mapperRentalProperty);
         verifyNoMoreInteractions(rentalPropertyRepository);
     }
 
     @Test
-    public void updateRentalProperty_NotFound(){
+    public void updateRentalProperty_NotFound() {
         //GIVEN
         int rentalId = 2;
 
@@ -140,15 +140,15 @@ class RentalPropertyServiceTest {
         when(rentalPropertyRepository.findById(rentalId)).thenReturn(Optional.empty());
 
         //THEN
-        assertThatExceptionOfType(NotFoundException.class)
-                .isThrownBy(() ->  rentalPropertyService.findRentalProperty(rentalId))
+        assertThatExceptionOfType(NotFoundRentalPropertyException.class)
+                .isThrownBy(() -> rentalPropertyService.findRentalProperty(rentalId))
                 .satisfies(e -> assertThat(e.getMessage()).isEqualTo("Rental Property Not Found " + rentalId));
 
         verifyNoMoreInteractions(rentalPropertyRepository);
     }
 
     @Test
-    public void updateRentalProperty_Good(){
+    public void updateRentalProperty_Good() {
         //GIVEN
         int rentalId = 2;
         RentalPropertyDto rentalPropertyDto = buildPropertyDto();
@@ -158,11 +158,11 @@ class RentalPropertyServiceTest {
 
         //WHEN
         when(rentalPropertyRepository.findById(rentalId)).thenReturn(Optional.of(rentalPropertyEntity));
-        when(rentalPropertyTypeService.saveOrFind(rentalPropertyDto.getPropertyType())).thenReturn(propertyTypeEntity);
-        when(energyClassificationService.saveOrFind(rentalPropertyDto.getEnergyClassification().name())).thenReturn(energyClassificationEntity);
-        when(mapperProperty.toPropertyDto(rentalPropertyDto, rentalId)).thenReturn(rentalPropertyEntity);
+        when(rentalPropertyTypeService.updatePropertyTypeEnum(rentalPropertyDto.getPropertyType())).thenReturn(propertyTypeEntity);
+        when(energyClassificationService.updateEnergyClassification(rentalPropertyDto.getEnergyClassification().name())).thenReturn(energyClassificationEntity);
+        when(mapperRentalProperty.toPropertyDto(rentalPropertyDto, rentalId)).thenReturn(rentalPropertyEntity);
         when(rentalPropertyRepository.save(rentalPropertyEntity)).thenReturn(rentalPropertyEntity);
-        when(mapperProperty.mapTo(rentalPropertyEntity, rentalPropertyDto, energyClassificationEntity, propertyTypeEntity)).thenReturn(rentalPropertyEntity);
+        when(mapperRentalProperty.mapTo(rentalPropertyEntity, rentalPropertyDto, energyClassificationEntity, propertyTypeEntity)).thenReturn(rentalPropertyEntity);
 
 
         //THEN
@@ -170,14 +170,14 @@ class RentalPropertyServiceTest {
         verifyNoMoreInteractions(rentalPropertyRepository);
         verifyNoMoreInteractions(rentalPropertyTypeService);
         verifyNoMoreInteractions(energyClassificationService);
-        verifyNoMoreInteractions(mapperProperty);
+        verifyNoMoreInteractions(mapperRentalProperty);
         verifyNoMoreInteractions(rentalPropertyRepository);
-        verifyNoMoreInteractions(mapperProperty);
+        verifyNoMoreInteractions(mapperRentalProperty);
     }
 
 
     @Test
-    public void updateRentalAmount_NotFound(){
+    public void updateRentalAmount_NotFound() {
         //GIVEN
         int rentalId = 2;
         Double rentalAmount = 200.2;
@@ -186,15 +186,15 @@ class RentalPropertyServiceTest {
         when(rentalPropertyRepository.findById(rentalId)).thenReturn(Optional.empty());
 
         //THEN
-        assertThatExceptionOfType(NotFoundException.class)
-                .isThrownBy(() ->  rentalPropertyService.updateRentalAmount(rentalId, rentalAmount))
+        assertThatExceptionOfType(NotFoundRentalPropertyException.class)
+                .isThrownBy(() -> rentalPropertyService.updateRentalAmount(rentalId, rentalAmount))
                 .satisfies(e -> assertThat(e.getMessage()).isEqualTo("Rental Property Not Found " + rentalId));
 
         verifyNoMoreInteractions(rentalPropertyRepository);
     }
 
     @Test
-    public void updateRentalAmount_Good(){
+    public void updateRentalAmount_Good() {
         //GIVEN
         int rentalId = 2;
         Double rentalAmount = 200.2;
@@ -215,7 +215,7 @@ class RentalPropertyServiceTest {
         verifyNoMoreInteractions(rentalPropertyRepository);
     }
 
-    private RentalPropertyEntity buildPropertyEntity(){
+    private RentalPropertyEntity buildPropertyEntity() {
         return new RentalPropertyEntity(
                 "hello",
                 "hello",
@@ -236,7 +236,7 @@ class RentalPropertyServiceTest {
         );
     }
 
-    private RentalPropertyEntity buildPropertyEntityWithId(int id){
+    private RentalPropertyEntity buildPropertyEntityWithId(int id) {
         return new RentalPropertyEntity(
                 id,
                 "hello",
@@ -258,7 +258,7 @@ class RentalPropertyServiceTest {
         );
     }
 
-    private RentalPropertyDto buildPropertyDto(){
+    private RentalPropertyDto buildPropertyDto() {
         return new RentalPropertyDto(
                 "hello",
                 "hello",
@@ -279,7 +279,7 @@ class RentalPropertyServiceTest {
         );
     }
 
-    private RentalPropertiesDto buildPropertiesDto(){
+    private RentalPropertiesDto buildPropertiesDto() {
         return new RentalPropertiesDto(
                 "hello",
                 145.0,

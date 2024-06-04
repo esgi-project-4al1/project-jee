@@ -1,0 +1,11 @@
+[
+  {
+    "address": "90 rue de la Victoire",
+    "area": 50.69,
+    "description": "Appartement bien situé près du métro et des commerces",
+    "propertyTypeDto": "FLAT",
+    "rentAmount": 1040.9,
+    "securityDepositAmount": 1040.9,
+    "town": "Neuilly-sur-Seine"
+  }
+]

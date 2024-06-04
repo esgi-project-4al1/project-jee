@@ -6,9 +6,8 @@ import com.rent.car.rentproperty.entity.EnergyClassificationEntity;
 import com.rent.car.rentproperty.entity.PropertyTypeEntity;
 import com.rent.car.rentproperty.entity.RentalPropertyEntity;
 import com.rent.car.rentproperty.exception.NotFoundRentalPropertyException;
-import com.rent.car.rentproperty.mapper.MapperProperty;
+import com.rent.car.rentproperty.mapper.MapperRentalProperty;
 import com.rent.car.rentproperty.repository.RentalPropertyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,13 +17,12 @@ public class RentalPropertyService {
 
     private final RentalPropertyTypeService rentalPropertyTypeService;
     private final EnergyClassificationService energyClassificationService;
-    private final MapperProperty mapperProperty;
+    private final MapperRentalProperty mapperRentalProperty;
     private final RentalPropertyRepository rentalPropertyRepository;
 
 
-    @Autowired()
-    public RentalPropertyService(MapperProperty mapperProperty, RentalPropertyRepository rentalPropertyRepository, RentalPropertyTypeService rentalPropertyTypeService, EnergyClassificationService energyClassificationService) {
-        this.mapperProperty = mapperProperty;
+    public RentalPropertyService(MapperRentalProperty mapperRentalProperty, RentalPropertyRepository rentalPropertyRepository, RentalPropertyTypeService rentalPropertyTypeService, EnergyClassificationService energyClassificationService) {
+        this.mapperRentalProperty = mapperRentalProperty;
         this.rentalPropertyRepository = rentalPropertyRepository;
         this.rentalPropertyTypeService = rentalPropertyTypeService;
         this.energyClassificationService = energyClassificationService;
@@ -33,7 +31,7 @@ public class RentalPropertyService {
     public RentalPropertiesDto findRentalProperty(int rentalId) {
         return this.rentalPropertyRepository
                 .findById(rentalId)
-                .map(this.mapperProperty::toPropertyEntity)
+                .map(this.mapperRentalProperty::toPropertyEntity)
                 .orElseThrow(() -> new NotFoundRentalPropertyException("Rental Property Not Found " + rentalId));
     }
 
@@ -41,7 +39,7 @@ public class RentalPropertyService {
         return this.rentalPropertyRepository
                 .findAll()
                 .stream()
-                .map(this.mapperProperty::toPropertyEntity)
+                .map(this.mapperRentalProperty::toPropertyEntity)
                 .toList();
     }
 
@@ -61,19 +59,19 @@ public class RentalPropertyService {
     public void updateRentalProperty(int rentalId, RentalPropertyDto rentalPropertyDto) {
         this.rentalPropertyRepository.findById(rentalId)
                 .orElseThrow(() -> new NotFoundRentalPropertyException("Rental Property Not Found " + rentalId));
-        PropertyTypeEntity propertyTypeEntity = this.rentalPropertyTypeService.saveOrFind(rentalPropertyDto.getPropertyType());
-        EnergyClassificationEntity energyClassificationEntity = this.energyClassificationService.saveOrFind(rentalPropertyDto.getEnergyClassification().name());
-        RentalPropertyEntity rentalPropertyEntity = this.mapperProperty.toPropertyDto(rentalPropertyDto, rentalId);
+        PropertyTypeEntity propertyTypeEntity = this.rentalPropertyTypeService.updatePropertyTypeEnum(rentalPropertyDto.getPropertyType());
+        EnergyClassificationEntity energyClassificationEntity = this.energyClassificationService.updateEnergyClassification(rentalPropertyDto.getEnergyClassification().name());
+        RentalPropertyEntity rentalPropertyEntity = this.mapperRentalProperty.toPropertyDto(rentalPropertyDto, rentalId);
         this.rentalPropertyRepository.save(
-                this.mapperProperty.mapTo(rentalPropertyEntity, rentalPropertyDto, energyClassificationEntity, propertyTypeEntity)
+                this.mapperRentalProperty.mapTo(rentalPropertyEntity, rentalPropertyDto, energyClassificationEntity, propertyTypeEntity)
         );
 
     }
 
     public void saveRentalProperty(RentalPropertyDto rentalPropertyDto) {
-        PropertyTypeEntity propertyTypeEntity = this.rentalPropertyTypeService.saveOrFind(rentalPropertyDto.getPropertyType());
-        EnergyClassificationEntity energyClassificationEntity = this.energyClassificationService.saveOrFind(rentalPropertyDto.getEnergyClassification().name());
-        RentalPropertyEntity rentalPropertyEntity = this.mapperProperty.toPropertyDto(rentalPropertyDto);
+        PropertyTypeEntity propertyTypeEntity = this.rentalPropertyTypeService.updatePropertyTypeEnum(rentalPropertyDto.getPropertyType());
+        EnergyClassificationEntity energyClassificationEntity = this.energyClassificationService.updateEnergyClassification(rentalPropertyDto.getEnergyClassification().name());
+        RentalPropertyEntity rentalPropertyEntity = this.mapperRentalProperty.toPropertyDto(rentalPropertyDto);
         this.rentalPropertyRepository.save(rentalPropertyEntity.PropertyEntityWithNewProperTypeAndEnergy(propertyTypeEntity, energyClassificationEntity));
     }
 }

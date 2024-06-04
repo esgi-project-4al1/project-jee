@@ -9,28 +9,28 @@ import jakarta.validation.constraints.NotNull;
 public class RentalPropertyDto {
 
     @JsonProperty("description")
-    @NotNull(message = "Please specify brand")
-    @NotBlank(message = "Brand cannot be blank")
+    @NotNull(message = "Please specify description")
+    @NotBlank(message = "Description cannot be blank")
     private String description;
     @JsonProperty("town")
-    @NotNull(message = "Please specify brand")
-    @NotBlank(message = "Brand cannot be blank")
+    @NotNull(message = "Please specify town")
+    @NotBlank(message = "Town cannot be blank")
     private String town;
     @JsonProperty("address")
-    @NotNull(message = "Please specify brand")
-    @NotBlank(message = "Brand cannot be blank")
+    @NotNull(message = "Please specify address")
+    @NotBlank(message = "Address cannot be blank")
     private String address;
     @JsonProperty("propertyType")
-    @NotNull(message = "Please specify brand")
+    @NotNull(message = "Please propertyType")
     private RentalPropertyTypeEnumDto propertyType;
     @JsonProperty("rentAmount")
-    @NotNull(message = "Please specify brand")
+    @NotNull(message = "Please rentAmount")
     private Double rentAmount;
     @JsonProperty("securityDepositAmount")
     @NotNull(message = "Please specify brand")
     private Double securityDepositAmount;
     @JsonProperty("area")
-    @NotNull(message = "Please specify brand")
+    @NotNull(message = "Please specify area")
     private Double area;
     @JsonProperty("numberOfBedrooms")
     private Integer numberOfBedrooms;
