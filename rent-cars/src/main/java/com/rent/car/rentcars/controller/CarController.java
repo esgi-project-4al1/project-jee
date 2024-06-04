@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/rent-cars-api/rental-cars")
+@RequestMapping("/rent-cars-api/cars")
 @Validated
 public class CarController {
 
@@ -27,14 +27,15 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addCar( @Valid  @RequestBody CarDto carDto) {
-            System.out.println("Received car data: " + carDto);
-            carService.addCar(carDto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Void> addCar(@Valid @RequestBody CarDto carDto) {
+
+        System.out.println("Received car data: " + carDto);
+        carService.addCar(carDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updateCar(@PathVariable Integer id, @RequestBody UpdateCarDto updateCarDto) {
+    public ResponseEntity<Void> updateCar(@PathVariable Integer id, @Valid @RequestBody UpdateCarDto updateCarDto) {
         try {
             carService.updateCar(id, updateCarDto);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -46,12 +47,12 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateOrAddCar(@PathVariable Integer id, @RequestBody CarDto carDto) {
+    public ResponseEntity<Void> updateOrAddCar(@PathVariable Integer id, @Valid @RequestBody CarDto carDto) {
         carService.updateOrAddCar(id, carDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping()
+    @GetMapping("/rental-cars")
     public ResponseEntity<List<CarDto>> getAllRentalCars() {
         List<CarDto> rentalCars = carService.getAllRentalCars();
         return new ResponseEntity<>(rentalCars, HttpStatus.OK);
@@ -60,20 +61,16 @@ public class CarController {
     @GetMapping("/{id}")
     public ResponseEntity<CarDto> getCarById(@PathVariable Integer id) {
         CarDto carDto = carService.getCarById(id);
-        if (carDto != null) {
-            return new ResponseEntity<>(carDto, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
+        return new ResponseEntity<>(carDto, HttpStatus.OK);
+
     }
 
-     @DeleteMapping("/{id}")
-    public ResponseEntity<CarDto> deleteCarById(@PathVariable Integer id) {
-        try {
-            CarDto deletedCar = carService.deleteCarById(id);
-            return new ResponseEntity<>(deletedCar, HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity <Object> deleteCarById(@PathVariable Integer id) {
+
+            carService.deleteCarById(id);
+            return new ResponseEntity<>( HttpStatus.OK);
+
     }
 }
