@@ -44,6 +44,10 @@ public class CarControllerTest {
         verifyNoMoreInteractions(carService);
     }
 
+
+
+
+
     @Test
     void testUpdateCar_Success() {
         UpdateCarDto updateCarDto = new UpdateCarDto();
@@ -67,6 +71,8 @@ public class CarControllerTest {
         verify(carService, times(1)).updateCar(anyInt(), any(UpdateCarDto.class));
         verifyNoMoreInteractions(carService);
     }
+
+
 
     @Test
     void testUpdateOrAddCar() {
@@ -107,6 +113,16 @@ public class CarControllerTest {
         verify(carService, times(1)).getCarById(anyInt());
         verifyNoMoreInteractions(carService);
 
+    }
+    @Test
+    void testDeleteCarById() {
+        doNothing().when(carService).deleteCarById(anyInt());
+
+        ResponseEntity<Object> response = carController.deleteCarById(1);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(carService, times(1)).deleteCarById(anyInt());
+        verifyNoMoreInteractions(carService);
     }
 
 
