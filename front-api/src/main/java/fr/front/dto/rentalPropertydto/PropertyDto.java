@@ -1,4 +1,4 @@
-package fr.front.api.rentalPropertydto;
+package fr.front.dto.rentalPropertydto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

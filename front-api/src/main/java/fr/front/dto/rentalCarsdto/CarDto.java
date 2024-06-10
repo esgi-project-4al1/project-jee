@@ -1,4 +1,4 @@
-package fr.front.api.rentalCarsdto;
+package fr.front.dto.rentalCarsdto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +25,7 @@ public class CarDto {
 
     @NotNull(message = "Please specify if it has air conditioning")
     private Boolean hasAirConditioning;
+
     @NotNull
     public String getBrand() {
         return brand;

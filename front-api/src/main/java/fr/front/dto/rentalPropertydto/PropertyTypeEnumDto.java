@@ -1,4 +1,4 @@
-package fr.front.api.rentalPropertydto;
+package fr.front.dto.rentalPropertydto;
 
 public enum PropertyTypeEnumDto {
 
