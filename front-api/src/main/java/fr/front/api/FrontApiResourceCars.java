@@ -39,7 +39,7 @@ public class FrontApiResourceCars {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la récupération de la voiture").build();
         }
@@ -62,7 +62,7 @@ public class FrontApiResourceCars {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la mise à jour partielle de la voiture").build();
         }
@@ -85,7 +85,7 @@ public class FrontApiResourceCars {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la mise à jour de la voiture").build();
         }
@@ -106,7 +106,7 @@ public class FrontApiResourceCars {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la récupération de la voiture").build();
         }
@@ -127,7 +127,7 @@ public class FrontApiResourceCars {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la suppression de la voiture").build();
         }
@@ -149,15 +149,15 @@ public class FrontApiResourceCars {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la création de la voiture").build();
         }
     }
 
-    public Response handleStatusCode(int statusCode) {
+    public Response handleStatusCode(HttpResponse<String>  response, int statusCode) {
         return switch (statusCode) {
-            case 200 -> Response.ok().entity("Response Body").build();
+            case 200 -> Response.ok(response.body()).entity("Response Body").build();
             case 201 -> Response.status(statusCode).build();
             case 204 -> Response.status(Response.Status.NO_CONTENT).build();
             case 400 -> Response.status(Response.Status.BAD_REQUEST).entity("Requête invalide").build();

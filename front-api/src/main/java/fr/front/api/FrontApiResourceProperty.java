@@ -41,7 +41,7 @@ public class FrontApiResourceProperty {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
 
             return Response.serverError().entity("Erreur lors de la récupération des propriétés").build();
@@ -65,7 +65,7 @@ public class FrontApiResourceProperty {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la mise à jour partielle de la propriété").build();
         }
@@ -87,7 +87,7 @@ public class FrontApiResourceProperty {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la récupération de la propriété").build();
         }
@@ -107,7 +107,7 @@ public class FrontApiResourceProperty {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la suppression de la propriété").build();
         }
@@ -129,7 +129,7 @@ public class FrontApiResourceProperty {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la création de la propriété").build();
         }
@@ -152,16 +152,16 @@ public class FrontApiResourceProperty {
             HttpResponse<String> response = client.getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = response.statusCode();
-            return handleStatusCode(statusCode);
+            return handleStatusCode(response ,statusCode);
         } catch (IOException | InterruptedException e) {
             return Response.serverError().entity("Erreur lors de la mise à jour de la propriété").build();
         }
     }
 
 
-    public Response handleStatusCode(int statusCode) {
+    public Response handleStatusCode(HttpResponse<String> response, int statusCode) {
         return switch (statusCode) {
-            case 200 -> Response.ok().build();
+            case 200 -> Response.ok(response.body()).build();
             case 201 -> Response.status(statusCode).build();
             case 204 -> Response.status(Response.Status.NO_CONTENT).build();
             case 400 -> Response.status(Response.Status.BAD_REQUEST).entity("Requête invalide").build();
