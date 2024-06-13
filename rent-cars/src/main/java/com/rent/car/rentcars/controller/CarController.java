@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/rent-cars-api/cars")
+@RequestMapping("/rent-cars-api/rental-car")
 @Validated
 public class CarController {
 
