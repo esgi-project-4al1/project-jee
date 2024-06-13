@@ -2,7 +2,6 @@ package com.rent.car.rentcars.controller;
 
 import com.rent.car.rentcars.dto.CarDto;
 import com.rent.car.rentcars.dto.UpdateCarDto;
-import com.rent.car.rentcars.exception.ResourceNotFoundException;
 import com.rent.car.rentcars.service.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,26 +28,19 @@ public class CarController {
     @PostMapping
     public ResponseEntity<Void> addCar(@Valid @RequestBody CarDto carDto) {
 
-        System.out.println("Received car data: " + carDto);
-        carService.addCar(carDto);
+        carService.saveCar(carDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Void> updateCar(@PathVariable Integer id, @Valid @RequestBody UpdateCarDto updateCarDto) {
-        try {
-            carService.updateCar(id, updateCarDto);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        carService.updateRentalAmount(id, updateCarDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateOrAddCar(@PathVariable Integer id, @Valid @RequestBody CarDto carDto) {
-        carService.updateOrAddCar(id, carDto);
+        carService.updateCar(id, carDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -67,10 +59,9 @@ public class CarController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity <Object> deleteCarById(@PathVariable Integer id) {
-
-            carService.deleteCarById(id);
-            return new ResponseEntity<>( HttpStatus.OK);
+    public ResponseEntity<Object> deleteCarById(@PathVariable Integer id) {
+        carService.deleteCarById(id);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 
     }
 }

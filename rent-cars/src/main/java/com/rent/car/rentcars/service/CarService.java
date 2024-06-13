@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,33 +23,17 @@ public class CarService {
         this.carRepository = carRepository;
     }
 
-    public void addCar(CarDto carDto) {
-        CarEntity carEntity = mapperCar.toCarEntity(carDto);
-        carRepository.save(carEntity);
+
+    public void updateRentalAmount(int id, UpdateCarDto updateCarDto) {
+        CarEntity carEntitySave = this.carRepository.findById(id)
+                .map(carEntity -> this.mapperCar.toCarEntity(id, updateCarDto, carEntity))
+                .orElseThrow(() -> new ResourceNotFoundException("not found car by this id " + id));
+        this.carRepository.save(carEntitySave);
     }
 
-    public void updateCar(Integer id,  UpdateCarDto updateCarDto) throws ResourceNotFoundException {
-        Optional<CarEntity> carEntityOptional = carRepository.findById(id);
-
-        if (carEntityOptional.isPresent()) {
-            CarEntity carEntity = carEntityOptional.get();
-
-            if (updateCarDto.getRentAmount() != null) {
-                carEntity.setRentAmount(updateCarDto.getRentAmount());
-                carRepository.save(carEntity);
-            }
-        } else {
-            throw new ResourceNotFoundException("Car with id " + id + " not found");
-        }
-    }
-
-    public void updateOrAddCar(Integer id, CarDto carDto){
-        if (carRepository.existsById(id)) {
-            CarEntity carEntity = mapperCar.toCarEntity(id, carDto);
-            carRepository.save(carEntity);
-        } else {
-            addCar(carDto);
-        }
+    public void saveCar(CarDto carDto) {
+        CarEntity carEntity = this.mapperCar.toCarEntity(carDto);
+        this.carRepository.save(carEntity);
     }
 
     public List<CarDto> getAllRentalCars() {
@@ -60,17 +43,21 @@ public class CarService {
                 .collect(Collectors.toList());
     }
 
-    public CarDto getCarById(Integer id) {
+    public CarDto getCarById(int id) {
         CarEntity carEntity = carRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
         return mapperCar.toCarDto(carEntity);
     }
 
-       public CarDto deleteCarById(Integer id) {
-        CarEntity carEntity = carRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
+    public void updateCar(int id, CarDto carDto){
+        this.carRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("not found"));
+        CarEntity carEntity = this.mapperCar.toCarEntity(id, carDto);
+        this.carRepository.save(carEntity);
+    }
+
+    public void deleteCarById(Integer id) {
         carRepository.deleteById(id);
-        return mapperCar.toCarDto(carEntity);
     }
 
 }

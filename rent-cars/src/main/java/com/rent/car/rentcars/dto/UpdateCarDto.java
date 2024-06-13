@@ -12,7 +12,6 @@ public class UpdateCarDto {
 
 
     @NotNull(message = "please specify the amount")
-    @NotBlank(message = "please specify the amount")
     private Double rentAmount;
 
     public Double getRentAmount() {
