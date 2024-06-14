@@ -33,13 +33,13 @@ public class CarController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updateCar(@PathVariable Integer id, @Valid @RequestBody UpdateCarDto updateCarDto) {
+    public ResponseEntity<Void> updateCarRentalAmount(@PathVariable Integer id, @Valid @RequestBody UpdateCarDto updateCarDto) {
         carService.updateRentalAmount(id, updateCarDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateOrAddCar(@PathVariable Integer id, @Valid @RequestBody CarDto carDto) {
+    public ResponseEntity<Void> updateCar(@PathVariable Integer id, @Valid @RequestBody CarDto carDto) {
         carService.updateCar(id, carDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -15,7 +15,7 @@ public class RentAmountDto {
     public RentAmountDto() {
     }
 
-    @NotBlank
+
     public Double getRentAmount() {
         return rentAmount;
     }

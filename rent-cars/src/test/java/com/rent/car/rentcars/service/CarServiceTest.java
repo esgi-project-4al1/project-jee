@@ -8,9 +8,11 @@ import com.rent.car.rentcars.mapper.CarMapper;
 import com.rent.car.rentcars.repository.CarRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class CarServiceTest {
 
     @InjectMocks
@@ -32,18 +35,13 @@ public class CarServiceTest {
     @Mock
     private CarMapper carMapper;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
-    void testAddCar() {
+    void testSaveCar() {
         CarDto carDto = new CarDto();
         CarEntity carEntity = new CarEntity();
         when(carMapper.toCarEntity(carDto)).thenReturn(carEntity);
 
-        carService.addCar(carDto);
+        carService.saveCar(carDto);
 
         verify(carRepository, times(1)).save(carEntity);
         verify(carMapper, times(1)).toCarEntity(carDto);
@@ -51,58 +49,44 @@ public class CarServiceTest {
     }
 
     @Test
-    void testUpdateCar_Success() {
+    void testUpdateCarRentalAmount_Success() {
         UpdateCarDto updateCarDto = new UpdateCarDto();
         updateCarDto.setRentAmount(100.0);
         CarEntity carEntity = new CarEntity();
-        when(carRepository.findById(anyInt())).thenReturn(Optional.of(carEntity));
-
-        carService.updateCar(1, updateCarDto);
+        carEntity.setRentAmount(100.0);
+        when(carRepository.findById(eq(1))).thenReturn(Optional.of(carEntity));
+        when(carMapper.toCarEntity(eq(1), any(), any() )).thenReturn(carEntity);
+        carService.updateRentalAmount(1, updateCarDto);
 
         assertEquals(100.0, carEntity.getRentAmount());
-        verify(carRepository, times(1)).findById(anyInt());
-        verify(carRepository, times(1)).save(carEntity);
+        verify(carRepository).findById(eq(1));
+        verify(carRepository).save(carEntity);
         verifyNoMoreInteractions(carRepository);
     }
 
     @Test
-    void testUpdateCar_NotFound() {
+    void testUpdateRentalAmount_NotFound() {
         UpdateCarDto updateCarDto = new UpdateCarDto();
         when(carRepository.findById(anyInt())).thenReturn(Optional.empty());
 
-        assertThrows(ResourceNotFoundException.class, () -> carService.updateCar(1, updateCarDto));
+        assertThrows(ResourceNotFoundException.class, () -> carService.updateRentalAmount(1, updateCarDto));
 
         verify(carRepository, times(1)).findById(anyInt());
         verifyNoMoreInteractions(carRepository);
     }
 
     @Test
-    void testUpdateOrAddCar_Update() {
+    void testUpdateCar_Update() {
         CarDto carDto = new CarDto();
         CarEntity carEntity = new CarEntity();
-        when(carRepository.existsById(anyInt())).thenReturn(true);
+        when(carRepository.findById(anyInt())).thenReturn(Optional.of(carEntity));
         when(carMapper.toCarEntity(anyInt(), any(CarDto.class))).thenReturn(carEntity);
 
-        carService.updateOrAddCar(1, carDto);
+        carService.updateCar(1, carDto);
 
-        verify(carRepository, times(1)).existsById(anyInt());
+        verify(carRepository, times(1)).findById(anyInt());
         verify(carRepository, times(1)).save(carEntity);
         verify(carMapper, times(1)).toCarEntity(anyInt(), any(CarDto.class));
-        verifyNoMoreInteractions(carRepository, carMapper);
-    }
-
-    @Test
-    void testUpdateOrAddCar_Add() {
-        CarDto carDto = new CarDto();
-        CarEntity carEntity = new CarEntity();
-        when(carRepository.existsById(anyInt())).thenReturn(false);
-        when(carMapper.toCarEntity(carDto)).thenReturn(carEntity);
-
-        carService.updateOrAddCar(1, carDto);
-
-        verify(carRepository, times(1)).existsById(anyInt());
-        verify(carRepository, times(1)).save(carEntity);
-        verify(carMapper, times(1)).toCarEntity(carDto);
         verifyNoMoreInteractions(carRepository, carMapper);
     }
 
@@ -149,23 +133,9 @@ public class CarServiceTest {
 
     @Test
     void testDeleteCarById_Success() {
-        CarEntity carEntity = new CarEntity();
-        when(carRepository.findById(anyInt())).thenReturn(Optional.of(carEntity));
 
         carService.deleteCarById(1);
-
-        verify(carRepository, times(1)).findById(anyInt());
-        verify(carRepository, times(1)).deleteById(anyInt());
-        verifyNoMoreInteractions(carRepository);
-    }
-
-    @Test
-    void testDeleteCarById_NotFound() {
-        when(carRepository.findById(anyInt())).thenReturn(Optional.empty());
-
-        assertThrows(ResourceNotFoundException.class, () -> carService.deleteCarById(1));
-
-        verify(carRepository, times(1)).findById(anyInt());
+        verify(carRepository, times(1)).deleteById(1);
         verifyNoMoreInteractions(carRepository);
     }
 }

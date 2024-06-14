@@ -16,7 +16,7 @@ class FrontApplicationTest {
         assertTrue(annotations.length > 0, "L'annotation @ApplicationPath est manquante.");
 
         ApplicationPath applicationPath = (ApplicationPath) annotations[0];
-        assertEquals("/api", applicationPath.value(), "Le chemin de l'annotation @ApplicationPath est incorrect.");
+        assertEquals("/", applicationPath.value(), "Le chemin de l'annotation @ApplicationPath est incorrect.");
     }
 
     @Test

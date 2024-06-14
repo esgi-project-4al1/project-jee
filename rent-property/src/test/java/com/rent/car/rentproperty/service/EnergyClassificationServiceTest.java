@@ -2,7 +2,6 @@ package com.rent.car.rentproperty.service;
 
 import com.rent.car.rentproperty.entity.EnergyClassificationEntity;
 import com.rent.car.rentproperty.exception.NullEnergyClassificationException;
-import com.rent.car.rentproperty.exception.NullRentalPropertyEnumException;
 import com.rent.car.rentproperty.repository.EnergyClassificationRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
