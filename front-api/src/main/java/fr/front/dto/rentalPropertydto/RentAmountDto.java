@@ -17,4 +17,8 @@ public class RentAmountDto {
     public Double getRentAmount() {
         return rentAmount;
     }
+
+    public void setRentAmount(@Nonnull Double rentAmount) {
+        this.rentAmount = rentAmount;
+    }
 }

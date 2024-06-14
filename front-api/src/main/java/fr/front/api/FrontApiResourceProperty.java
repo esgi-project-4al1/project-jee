@@ -1,6 +1,7 @@
 package fr.front.api;
 
 import fr.front.dto.rentalPropertydto.PropertyDto;
+import fr.front.dto.rentalPropertydto.RentAmountDto;
 import fr.front.service.MyHttpClient;
 import fr.front.service.MyObjectMapper;
 import jakarta.inject.Inject;
@@ -51,10 +52,10 @@ public class FrontApiResourceProperty {
     @PATCH
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updatePartialRentalProperty(@PathParam("id") String id, @Valid PropertyDto rentalProperty) {
+    public Response updatePartialRentalProperty(@PathParam("id") String id, @Valid RentAmountDto rentAmountDto) {
         try {
 
-            String requestBody = toJson(rentalProperty);
+            String requestBody = toJson(rentAmountDto);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(API_URL + "/" + id))
@@ -173,6 +174,14 @@ public class FrontApiResourceProperty {
     private String toJson(PropertyDto rentalProperty) {
         try {
             return myObjectMapper.getObjectMapper().writeValueAsString(rentalProperty);
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la conversion en JSON", e);
+        }
+    }
+
+    private String toJson(RentAmountDto rentAmountDto){
+        try {
+            return myObjectMapper.getObjectMapper().writeValueAsString(rentAmountDto);
         } catch (Exception e) {
             throw new RuntimeException("Erreur lors de la conversion en JSON", e);
         }

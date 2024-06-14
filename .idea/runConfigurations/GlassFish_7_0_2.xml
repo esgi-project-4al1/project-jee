@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="GlassFish 7.0.2" type="GlassfishConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="GlassFish 7.0.2" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="20" nameIsGenerated="true">
+  <configuration default="false" name="GlassFish 7.0.2" type="GlassfishConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="GlassFish 7.0.2" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="17" nameIsGenerated="true">
     <option name="UPDATING_POLICY" value="update-resources" />
     <deployment>
       <artifact name="front-api:war exploded">
@@ -68,7 +68,7 @@
     </ConfigurationWrapper>
     <method v="2">
       <option name="BuildArtifacts" enabled="true">
-        <artifact name="front-api:war" />
+        <artifact name="front-api:war exploded" />
       </option>
     </method>
   </configuration>

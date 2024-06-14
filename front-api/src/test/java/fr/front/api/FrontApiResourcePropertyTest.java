@@ -2,6 +2,7 @@ package fr.front.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.front.dto.rentalPropertydto.PropertyDto;
+import fr.front.dto.rentalPropertydto.RentAmountDto;
 import fr.front.service.MyHttpClient;
 import fr.front.service.MyObjectMapper;
 import jakarta.ws.rs.core.Response;
@@ -496,13 +497,13 @@ class FrontApiResourcePropertyTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        PropertyDto propertyDto = new PropertyDto();
+        RentAmountDto rentAmountDto = new RentAmountDto();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(propertyDto)).thenReturn(jsonPropertyDto);
+        when(objectMappermock.writeValueAsString(rentAmountDto)).thenReturn(jsonPropertyDto);
 
 
-        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", propertyDto)) {
+        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", rentAmountDto)) {
 
 
             assertEquals(200, response.getStatus());
@@ -520,13 +521,13 @@ class FrontApiResourcePropertyTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        PropertyDto propertyDto = new PropertyDto();
+        RentAmountDto rentAmountDto = new RentAmountDto();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(propertyDto)).thenReturn(jsonPropertyDto);
+        when(objectMappermock.writeValueAsString(rentAmountDto)).thenReturn(jsonPropertyDto);
 
 
-        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", propertyDto)) {
+        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", rentAmountDto)) {
 
 
             assertEquals(400, response.getStatus());
@@ -545,13 +546,13 @@ class FrontApiResourcePropertyTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        PropertyDto propertyDto = new PropertyDto();
+        RentAmountDto rentAmountDto = new RentAmountDto();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(propertyDto)).thenReturn(jsonPropertyDto);
+        when(objectMappermock.writeValueAsString(rentAmountDto)).thenReturn(jsonPropertyDto);
 
 
-        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", propertyDto)) {
+        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", rentAmountDto)) {
 
 
             assertEquals(500, response.getStatus());
@@ -567,13 +568,13 @@ class FrontApiResourcePropertyTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenThrow(new IOException());
 
-        PropertyDto propertyDto = new PropertyDto();
+        RentAmountDto rentAmountDto = new RentAmountDto();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(propertyDto)).thenReturn(jsonPropertyDto);
+        when(objectMappermock.writeValueAsString(rentAmountDto)).thenReturn(jsonPropertyDto);
 
 
-        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", propertyDto)) {
+        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", rentAmountDto)) {
 
 
             assertEquals(500, response.getStatus());
@@ -589,13 +590,13 @@ class FrontApiResourcePropertyTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenThrow(new InterruptedException());
 
-        PropertyDto propertyDto = new PropertyDto();
+        RentAmountDto rentAmountDto = new RentAmountDto();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(propertyDto)).thenReturn(jsonPropertyDto);
+        when(objectMappermock.writeValueAsString(rentAmountDto)).thenReturn(jsonPropertyDto);
 
 
-        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", propertyDto)) {
+        try (Response response = frontApiResourceProperty.updatePartialRentalProperty("123", rentAmountDto)) {
 
 
             assertEquals(500, response.getStatus());

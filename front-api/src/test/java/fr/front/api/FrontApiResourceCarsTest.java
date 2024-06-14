@@ -2,6 +2,7 @@ package fr.front.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.front.dto.rentalCarsdto.CarDto;
+import fr.front.dto.rentalCarsdto.UpdateCarDtoRentalAmount;
 import fr.front.service.MyHttpClient;
 import fr.front.service.MyObjectMapper;
 import jakarta.ws.rs.core.Response;
@@ -62,7 +63,6 @@ public class FrontApiResourceCarsTest {
 
 
         assertEquals(200, response.getStatus());
-        assertEquals("Response Body", response.getEntity());
     }
 
     @Test
@@ -113,7 +113,6 @@ public class FrontApiResourceCarsTest {
 
 
         assertEquals(200, response.getStatus());
-        assertEquals("Response Body", response.getEntity());
     }
 
     @Test
@@ -489,12 +488,12 @@ public class FrontApiResourceCarsTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        CarDto carDto = new CarDto();
+        UpdateCarDtoRentalAmount updateCarDtoRentalAmount = new UpdateCarDtoRentalAmount();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(carDto)).thenReturn(jsonCarDto);
+        when(objectMappermock.writeValueAsString(updateCarDtoRentalAmount)).thenReturn(jsonCarDto);
 
-        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", carDto)) {
+        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", updateCarDtoRentalAmount)) {
 
             assertEquals(200, response.getStatus());
         }
@@ -511,12 +510,12 @@ public class FrontApiResourceCarsTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        CarDto carDto = new CarDto();
+        UpdateCarDtoRentalAmount updateCarDtoRentalAmount = new UpdateCarDtoRentalAmount();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(carDto)).thenReturn(jsonCarDto);
+        when(objectMappermock.writeValueAsString(updateCarDtoRentalAmount)).thenReturn(jsonCarDto);
 
-        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", carDto)) {
+        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", updateCarDtoRentalAmount)) {
 
 
             assertEquals(400, response.getStatus());
@@ -535,13 +534,13 @@ public class FrontApiResourceCarsTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        CarDto carDto = new CarDto();
+        UpdateCarDtoRentalAmount updateCarDtoRentalAmount = new UpdateCarDtoRentalAmount();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(carDto)).thenReturn(jsonCarDto);
+        when(objectMappermock.writeValueAsString(updateCarDtoRentalAmount)).thenReturn(jsonCarDto);
 
 
-        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", carDto)) {
+        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", updateCarDtoRentalAmount)) {
 
 
             assertEquals(500, response.getStatus());
@@ -557,13 +556,13 @@ public class FrontApiResourceCarsTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenThrow(new IOException());
 
-        CarDto carDto = new CarDto();
+        UpdateCarDtoRentalAmount updateCarDtoRentalAmount = new UpdateCarDtoRentalAmount();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(carDto)).thenReturn(jsonCarDto);
+        when(objectMappermock.writeValueAsString(updateCarDtoRentalAmount)).thenReturn(jsonCarDto);
 
 
-        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", carDto)) {
+        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", updateCarDtoRentalAmount)) {
 
 
             assertEquals(500, response.getStatus());
@@ -579,13 +578,13 @@ public class FrontApiResourceCarsTest {
 
         when(clientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenThrow(new InterruptedException());
 
-        CarDto carDto = new CarDto();
+        UpdateCarDtoRentalAmount updateCarDtoRentalAmount = new UpdateCarDtoRentalAmount();
         ObjectMapper objectMappermock = Mockito.mock(ObjectMapper.class);
         when(myObjectMapper.getObjectMapper()).thenReturn(objectMappermock);
-        when(objectMappermock.writeValueAsString(carDto)).thenReturn(jsonCarDto);
+        when(objectMappermock.writeValueAsString(updateCarDtoRentalAmount)).thenReturn(jsonCarDto);
 
 
-        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", carDto)) {
+        try (Response response = frontApiResourceCars.updatePartialRentalCars("123", updateCarDtoRentalAmount)) {
 
 
             assertEquals(500, response.getStatus());

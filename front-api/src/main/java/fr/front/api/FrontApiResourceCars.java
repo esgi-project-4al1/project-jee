@@ -1,6 +1,7 @@
 package fr.front.api;
 
 import fr.front.dto.rentalCarsdto.CarDto;
+import fr.front.dto.rentalCarsdto.UpdateCarDtoRentalAmount;
 import fr.front.service.MyHttpClient;
 import fr.front.service.MyObjectMapper;
 import jakarta.inject.Inject;
@@ -48,10 +49,10 @@ public class FrontApiResourceCars {
     @PATCH
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updatePartialRentalCars(@PathParam("id") String id, @Valid CarDto carDto) {
+    public Response updatePartialRentalCars(@PathParam("id") String id, @Valid UpdateCarDtoRentalAmount updateCarDtoRentalAmount) {
         try {
 
-            String requestBody = toJson(carDto);
+            String requestBody = toJson(updateCarDtoRentalAmount);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(API_URL + "/" + id))
@@ -157,7 +158,7 @@ public class FrontApiResourceCars {
 
     public Response handleStatusCode(HttpResponse<String>  response, int statusCode) {
         return switch (statusCode) {
-            case 200 -> Response.ok(response.body()).entity("Response Body").build();
+            case 200 -> Response.ok(response.body()).build();
             case 201 -> Response.status(statusCode).build();
             case 204 -> Response.status(Response.Status.NO_CONTENT).build();
             case 400 -> Response.status(Response.Status.BAD_REQUEST).entity("Requête invalide").build();
@@ -173,4 +174,13 @@ public class FrontApiResourceCars {
             throw new RuntimeException("Erreur lors de la conversion en JSON", e);
         }
     }
+
+    private String toJson(UpdateCarDtoRentalAmount updateCarDtoRentalAmount){
+        try {
+            return myObjectMapper.getObjectMapper().writeValueAsString(updateCarDtoRentalAmount);
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la conversion en JSON", e);
+        }
+    }
+
 }
